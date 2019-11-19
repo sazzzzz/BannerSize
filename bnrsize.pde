@@ -30,12 +30,18 @@ void setup()  {
 	text("Drop Images", width/2, height/2);
 
 	// AWT
+	// 表示まで8秒ぐらいかかる
 	Canvas canvas = (Canvas)surface.getNative();
 	JLayeredPane pane = (JLayeredPane)canvas.getParent().getParent();
 
-	Button button = new Button("AWT");
-	button.setBounds(50, 85, 100, 30);
-	pane.add(button);
+	Button button = new Button("ボタン");
+	Panel panel = new Panel();
+	ScrollPane scr = new ScrollPane(ScrollPane.SCROLLBARS_ALWAYS);
+	panel.add(button);
+	scr.add(panel);
+	scr.setSize(200,200);
+
+	pane.add(scr);
 }
 
 void draw() {
