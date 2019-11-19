@@ -14,25 +14,28 @@ List<BannerChecker> checkers;
 PFont font;
 
 void setup()  {
-	// てきとうにサイズ設定
 	size(300, 300);
-	noSmooth();
 	createDropTarget();
 
-	// font = createFont("Arial", 30);  //この際に最大サイズを決める
+	// font = createFont("Arial", 30);		//この際に最大サイズを決める
 	font = loadFont("Helvetica-14.vlw");
-	textFont(font);  //設定したフォントを使用
+	textFont(font);							//設定したフォントを使用
 	
-	textSize(32);  //サイズを最終決定
-	fill(0);  //色を決定
+	textSize(32);							//サイズを最終決定
+	fill(0);								//色を決定
 	text("Drop Images", 20, height/3);
 }
 
 void draw() {
-	if (checkers == null || checkers.size() == 0) return;
 	background(#cccccc);
+	drawResult();
+}
 
-	// draw result
+
+
+// draw result
+private void drawResult() {
+	if (checkers == null || checkers.size() == 0) return;
 	
 	final int ox = 8, oy = 20, lh = 20;
 	final int x1 = ox, x2 = 200, x3 = 250;
