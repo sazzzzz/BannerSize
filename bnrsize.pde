@@ -28,14 +28,13 @@ void setup()  {
 
 void draw() {
 	background(#cccccc);
-	drawResult();
+	if (checkersExist()) drawResult();
 }
-
 
 
 // draw result
 private void drawResult() {
-	if (checkers == null || checkers.size() == 0) return;
+	if (!checkersExist()) return;
 	
 	final int ox = 8, oy = 20, lh = 20;
 	final int x1 = ox, x2 = 200, x3 = 250;
@@ -68,6 +67,10 @@ private void drawResult() {
 			text(bc.getHeight(), x3, y);
 		}
 	}
+}
+
+private boolean checkersExist() {
+	return checkers != null && checkers.size() > 0;
 }
 
 
