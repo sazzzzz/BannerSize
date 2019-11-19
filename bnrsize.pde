@@ -17,12 +17,12 @@ void setup()  {
 	size(300, 300);
 	createDropTarget();
 
-	// font = createFont("Arial", 30);		//この際に最大サイズを決める
-	font = loadFont("Helvetica-14.vlw");
-	textFont(font);							//設定したフォントを使用
+	// font = createFont("Arial", 30);		// ローカルフォントを使う。重い。（最大サイズを決める）
+	font = loadFont("Helvetica-14.vlw");	// 専用フォントを使う
+	textFont(font);							// 設定したフォントを使用
 	
-	fill(0);								//色を決定
-	textSize(32);							//サイズを最終決定
+	fill(0);
+	textSize(32);
 	textAlign(CENTER);
 	text("Drop Images", width/2, height/2);
 }

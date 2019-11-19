@@ -2,7 +2,7 @@ import java.io.File;
 
 public class BannerChecker {
 
-	// 2桁以上の数字
+	// 3桁以上の数字
 	static final String NUMREG = "[0-9][0-9][0-9]+";
 
 	int number1 = 0;
@@ -21,7 +21,7 @@ public class BannerChecker {
 
 	void check() {
 		//ファイルの存在確認
-		if (file != null && file.exists()) {
+		if (fileExists()) {
 			detectNumbers();
 			readyImage();
 		}
@@ -54,6 +54,10 @@ public class BannerChecker {
 	// 
 	// PRIVATE
 	// 
+
+	private boolean fileExists() {
+		return file != null && file.exists();
+	}
 
 	private void readyImage() {
 		img = loadImage(file.getAbsolutePath());
