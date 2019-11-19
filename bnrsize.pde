@@ -35,6 +35,8 @@ void draw() {
 
 	background(#cccccc);
 
+	// draw result
+	
 	int ox = 8, oy = 16;
 	int x1 = ox, x2 = 200, x3 = 250;
 
@@ -45,21 +47,26 @@ void draw() {
 	text("width", x2, oy);
 	text("height", x3, oy);
 
+	// body
 	fill(0);
 	textSize(14);
+	int y = oy;
 	for(int i = 0; i < checkers.size(); ++i){
 		BannerChecker bc = checkers.get(i);
-		int y = oy * 2 + i * 16;
 
-		// filename
-		fill(0);
-		text(bc.getFileName(), x1, y);
-		// width
-		fill(bc.getWidthResult() ? 0 : #cc0000);
-		text(bc.getWidth(), x2, y);
-		// height
-		fill(bc.getHeightResult() ? 0 : #cc0000);
-		text(bc.getHeight(), x3, y);
+		if (bc.isImage()) {
+			y += 16;
+
+			// filename
+			fill(0);
+			text(bc.getFileName(), x1, y);
+			// width
+			fill(bc.getWidthResult() ? 0 : #cc0000);
+			text(bc.getWidth(), x2, y);
+			// height
+			fill(bc.getHeightResult() ? 0 : #cc0000);
+			text(bc.getHeight(), x3, y);
+		}
 	}
 }
 
