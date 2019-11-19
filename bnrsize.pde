@@ -6,6 +6,9 @@ import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import processing.awt.*;
+import java.awt.*;
+import javax.swing.*;
 
 DropTarget dropTarget;
 Component component;
@@ -21,14 +24,25 @@ void setup()  {
 	font = loadFont("Helvetica-14.vlw");
 	textFont(font);							//設定したフォントを使用
 	
-	textSize(32);							//サイズを最終決定
 	fill(0);								//色を決定
-	text("Drop Images", 20, height/3);
+	textSize(32);							//サイズを最終決定
+	textAlign(CENTER);
+	text("Drop Images", width/2, height/2);
+
+	// AWT
+	Canvas canvas = (Canvas)surface.getNative();
+	JLayeredPane pane = (JLayeredPane)canvas.getParent().getParent();
+
+	Button button = new Button("AWT");
+	button.setBounds(50, 85, 100, 30);
+	pane.add(button);
 }
 
 void draw() {
-	background(#cccccc);
-	if (checkersExist()) drawResult();
+	if (checkersExist()) {
+		background(#cccccc);
+		drawResult();
+	}
 }
 
 
@@ -37,35 +51,39 @@ private void drawResult() {
 	if (!checkersExist()) return;
 	
 	final int ox = 8, oy = 20, lh = 20;
-	final int x1 = ox, x2 = 200, x3 = 250;
+	final int x1 = ox, x2 = 240, x3 = 300-ox;
 
 	// head
 	fill(#666666);
 	textSize(14);
+	textAlign(LEFT);
 	text("filename", x1, oy);
+	textAlign(RIGHT);
 	text("width", x2, oy);
 	text("height", x3, oy);
 
 	// body
-	fill(0);
 	textSize(14);
-	int y = oy;
-	for(int i = 0; i < checkers.size(); ++i){
+	for(int i = 0, y = oy; i < checkers.size(); ++i){
 		BannerChecker bc = checkers.get(i);
+		if (!bc.isImage()) break;
 
-		if (bc.isImage()) {
-			y += lh;
+		y += lh;
 
-			// filename
-			fill(0);
-			text(bc.getFileName(), x1, y);
-			// width
-			fill(bc.getWidthResult() ? 0 : #cc0000);
-			text(bc.getWidth(), x2, y);
-			// height
-			fill(bc.getHeightResult() ? 0 : #cc0000);
-			text(bc.getHeight(), x3, y);
-		}
+		// filename
+		fill(0);
+		textAlign(LEFT);
+		text(bc.getFileName(), x1, y);
+		// width
+		fill(bc.getWidthResult() ? 0 : #cc0000);
+		textAlign(RIGHT);
+		text(bc.getWidth(), x2, y);
+		// height
+		fill(bc.getHeightResult() ? 0 : #cc0000);
+		text(bc.getHeight(), x3, y);
+
+		stroke(#999999);
+		line(x1, y-15, width-ox, y-15);
 	}
 }
 
@@ -104,11 +122,12 @@ private void createDropTarget() {
 					/* 例外処理 */
 				}
 			}
-			if(files == null) return;
 
-			checkers = new ArrayList<BannerChecker>();
-			// checkers = new BannerChecker[files.size];
-			for(File f : files) checkFile(f);
+			// ファイルがあったらチェック開始
+			if (files != null) {
+				checkers = new ArrayList<BannerChecker>();
+				for(File f : files) checkFile(f);
+			}
 		}
 	});
 }

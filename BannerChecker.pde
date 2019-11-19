@@ -74,12 +74,10 @@ public class BannerChecker {
 		return int(target);
 	}
 
-	private String getNameWithoutExtension(File file)
-	{
+	private String getNameWithoutExtension(File file) {
 		String fileName = file.getName();
 		int index = fileName.lastIndexOf('.');
-		if (index != -1)
-		{
+		if (index != -1) {
 			return fileName.substring(0, index);
 		}
 		return "";
