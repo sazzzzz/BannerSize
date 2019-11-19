@@ -6,9 +6,6 @@ import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import processing.awt.*;
-import java.awt.*;
-import javax.swing.*;
 
 DropTarget dropTarget;
 Component component;
@@ -28,20 +25,6 @@ void setup()  {
 	textSize(32);							//サイズを最終決定
 	textAlign(CENTER);
 	text("Drop Images", width/2, height/2);
-
-	// AWT
-	// 表示まで8秒ぐらいかかる
-	Canvas canvas = (Canvas)surface.getNative();
-	JLayeredPane pane = (JLayeredPane)canvas.getParent().getParent();
-
-	Button button = new Button("ボタン");
-	Panel panel = new Panel();
-	ScrollPane scr = new ScrollPane(ScrollPane.SCROLLBARS_ALWAYS);
-	panel.add(button);
-	scr.add(panel);
-	scr.setSize(200,200);
-
-	pane.add(scr);
 }
 
 void draw() {
