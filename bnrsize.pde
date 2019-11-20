@@ -13,13 +13,13 @@ List<File> files;
 List<BannerChecker> checkers;
 PFont font;
 
-void setup()  {
+void setup() {
 	size(300, 300);
 	createDropTarget();
 
 	// font = createFont("Arial", 30);		// ローカルフォントを使う。重い。（最大サイズを決める）
 	font = loadFont("Helvetica-14.vlw");	// 専用フォントを使う
-	textFont(font);							// 設定したフォントを使用
+	textFont(font);
 	
 	fill(0);
 	textSize(32);
@@ -83,8 +83,8 @@ private boolean checkersExist() {
 
 private void checkFile(File file) {
 	BannerChecker bc = new BannerChecker(file);
-	checkers.add(bc);
 	bc.check();
+	checkers.add(bc);
 }
 
 private void createDropTarget() {
@@ -101,21 +101,19 @@ private void createDropTarget() {
 			files = null;
 			checkers = null;
 
-			if(trans.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+			if (trans.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
 				try {
 					files = (List<File>)
-					trans.getTransferData(DataFlavor.javaFileListFlavor);
-				} catch (UnsupportedFlavorException ex) {
-					/* 例外処理 */
-				} catch (IOException ex) {
-					/* 例外処理 */
+						trans.getTransferData(DataFlavor.javaFileListFlavor);
+				} catch (UnsupportedFlavorException ex) {	/* 例外処理 */
+				} catch (IOException ex) {					/* 例外処理 */
 				}
 			}
 
 			// ファイルがあったらチェック開始
 			if (files != null) {
 				checkers = new ArrayList<BannerChecker>();
-				for(File f : files) checkFile(f);
+				for (File f : files) checkFile(f);
 			}
 		}
 	});
